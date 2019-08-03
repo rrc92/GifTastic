@@ -3,3 +3,12 @@ body{
     background-size: cover;
     background-repeat: repeat;
 }
+.picture{
+    margin: 30px 70px 0px 0px;
+    width: 300px;
+    height: 200px;
+    
+}
+p{
+color: white;
+}
