@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GIFs 4 dayz betch</title>
+    <link rel="stylesheet" type="text/css" href="../GifTastic/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+</head>
+
+
+
+
+<body>
+    <div class="container">
+    <h1>GIF Search</h1>
+  
+    <!-- Movies will get dumped here -->
+    <div id="buttons-view"></div>
+
+    
+    <form id="movie-form">
+      
+
+      <!-- Button triggers new movie to be added -->
+      <input id="find-movie" type="submit" value="Search for a GIF">
+      <input type="text" id="movie-input"><br>
+    </form>
+
+    <div id="movieInfo"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Initial array of movies
+      var movies = ["party", "college", "nightclub", "booze"];
+
+      // Function for displaying movie data
+      function renderButtons() {
+        $('#buttons-view').empty();
+        //$('#buttons-view').html("");
+
+        // YOUR CODE GOES HERE
+        for (var i=0; i<movies.length; i++){
+        	createButton(movies[i]);
+        }
+
+      }
+
+      function createButton(mName){
+      	var b = $('<button>');
+      	b.attr('class', 'bMovie')
+      	b.text(mName);
+      	$('#buttons-view').append(b);
+      }
+
+      $(document).on('click', '.bMovie', function(){
+      	var movieName = $(this).text();
+      	// movieName.replace(g, '+');
+      	
+      	var u = "https://api.giphy.com/v1/gifs/trending?api_key=XZO13xGmo30LErC3ChdRvhNU1YKtpHpC";
+
+          $.ajax({
+      url: u,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
+      var img= $("<img>");
+      img.attr('src', response.data [3].images.downsized_large.url)
+    $('#movieInfo').append(img);
+    
+    });
+    
+
+////newwwwwwwwwwwwwwwwwwwwwwwwwwwww
+      	$.ajax({
+      		url: u,
+      		method: 'GET'
+      	}).then(function(response){
+              console.log(response);
+              debugger;
+      		var rString = JSON.stringify(data.response.docs);
+
+      		var p = $('<p>').text(rString);
+
+      		$('#movieInfo').prepend(p);
+      	})
+      });
+
+      // This function handles events where one button is clicked
+      $("#find-movie").on("click", function() {
+        var v = $("#movie-input").val();
+
+        movies.push(v);
+        createButton(v);
+        
+        event.preventDefault();
+
+        $("#movie-input").val("");
+      });
+
+      // Calling the renderButtons function to display the initial list of movies
+      renderButtons();
+    </script>
+  </div>
+</body>
+
+</html>
