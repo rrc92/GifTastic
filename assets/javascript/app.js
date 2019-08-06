@@ -1,32 +1,31 @@
- // Initial array of movies
- var movies = ["party", "college", "nightclub", "booze"];
+ // Initial array of GIF's
+ var gifs = ["party", "college", "nightclub", "booze"];
 
- // Function for displaying movie data
+ // Function for displaying gif data
  function renderButtons() {
      $("#buttons-view").empty();
 
-
-     // YOUR CODE GOES HERE
-     for (var i = 0; i < movies.length; i++) {
-         createButton(movies[i]);
+    //  for loop for creating buttons
+     for (var i = 0; i < gifs.length; i++) {
+         createButton(gifs[i]);
      }
 
  }
 
- function createButton(mName) {
+ function createButton(gName) {
      var b = $("<button>");
-     b.attr("class", "bMovie")
-     b.text(mName);
+     b.attr("class", "bgif")
+     b.text(gName);
      $("#buttons-view").append(b);
  }
 
- $(document).on("click", ".bMovie", function () {
-     var movieName = $(this).text();
+ $(document).on("click", ".bgif", function () {
+     var gifyName = $(this).text();
 
 
      var u =
          "https://api.giphy.com/v1/gifs/search?q=" +
-         movieName +
+         gifyName +
          "&api_key=XZO13xGmo30LErC3ChdRvhNU1YKtpHpC"
 
      $.ajax({
@@ -47,7 +46,7 @@
             img.attr("data-state", "still");
             img.addClass("picture");
 
-             $("#movieInfo").append(img, p);
+             $("#gifinfo").append(img, p);
 
 
 
@@ -76,8 +75,8 @@ $(this).attr("data-state", "still");
 });
          
  // This function handles events where one button is clicked
- $("#find-movie").on("click", function () {
-     var v = $("#movie-input").val();
+ $("#find-gify").on("click", function () {
+     var v = $("#gify-input").val();
 
 
 
@@ -87,12 +86,12 @@ $(this).attr("data-state", "still");
      } else {
 
 
-         movies.push(v);
+         gifs.push(v);
          createButton(v);
 
 
 
-         $("#movie-input").val("");
+         $("#gify-input").val("");
 
      }
 
@@ -100,5 +99,5 @@ $(this).attr("data-state", "still");
 
  });
 
- // Calling the renderButtons function to display the initial list of movies
+ // Calling the renderButtons function to display the initial list of gifs
  renderButtons();
